@@ -1,0 +1,23 @@
+let x_left = 0;
+let y_left = 0;
+let x_right = 0;
+let y_right = 0;
+
+radio.setGroup(1);
+
+basic.forever(function () {
+    // 左スティックの値を取得
+    pin2.digitalWrite(0);
+    x_left = pins.analogReadPin(AnalogPin.P0);
+    y_left = pins.analogReadPin(AnalogPin.P1);
+
+    // 右スティックの値を取得
+    pin2.digitalWrite(1);
+    x_right = pins.analogReadPin(AnalogPin.P0);
+    y_right = pins.analogReadPin(AnalogPin.P1);
+
+    // データを文字列に変換して送信
+    let data = "" + x_left + "," + y_left + "," + x_right + "," + y_right;
+    radio.sendString(data);
+    basic.pause(100);
+});
